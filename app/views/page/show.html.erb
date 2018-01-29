@@ -1,0 +1,25 @@
+
+<% content_for :title, @page[:title] %>
+<% content_for :description, @page[:description] %>
+
+
+<%= render "partials/header" %>
+
+<h1 class="col-md-1 offset-md-5 row"><%= @page[:h1] %></h1>
+
+<div class="content"> <%= @page[:content].html_safe %> </div>
+
+<div class="col-md-4 offset-md-4 row">
+  <div class="col-md-2 offset-md-1">
+    <%= link_to edit_page_path(@page[:slug]) do%>
+        <button type="button" class="btn btn-outline-warning btn-sm">Edit</button>
+    <% end %>
+
+  </div>
+
+  <div class="col-md-2 offset-md-1">
+    <%= link_to page_path(@page) ,method: :delete,data: { confirm: 'Are you sure?' } do %>
+        <button type="button" class="btn btn-outline-danger btn-sm">Delete</button>
+    <% end %>
+  </div>
+</div>

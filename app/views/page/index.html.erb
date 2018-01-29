@@ -1,0 +1,117 @@
+<%= render "partials/header" %>
+
+<table class="table table-bordered table-hover table-sm col-md-10 offset-md-1">
+  <thead>
+    <tr>
+      <th colspan="11">Published pages</th>
+    </tr>
+    <tr>
+      <th>id</th>
+      <th >Title</th>
+      <th >Description</th>
+      <th >Slug</th>
+      <th >H1</th>
+      <th >Content</th>
+      <th >Published at</th>
+      <th >Priority</th>
+      <th >Show</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @pages.each do |page| %>
+      <tr>
+        <td> <%= page[:id] %></td>
+        <td> <%= page.title.first(15) %> </td>
+        <td> <%= page.description.first(10) %> </td>
+        <td> <%= page.slug.first(10) %> </td>
+        <td> <%= page.h1.first(5) %> </td>
+        <td> <%= page.content.first(20) %> </td>
+        <td> <%= page.published_at %> </td>
+        <td> <%= page.priority %> </td>
+        <td>
+          <%= link_to page_show_path(page[:slug]) do%>
+              <button type="button" class="btn btn-outline-primary btn-sm">Show</button>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to edit_page_path(page[:slug]) do%>
+              <button type="button" class="btn btn-outline-warning btn-sm">Edit</button>
+          <% end %>
+        </td>
+
+        <td>
+          <%= link_to page_path(page) ,method: :delete,data: { confirm: 'Are you sure?' } do %>
+              <button type="button" class="btn btn-outline-danger btn-sm">Delete</button>
+          <% end %>
+        </td>
+      </tr>
+
+  <% end %>
+  </tbody>
+</table>
+
+<div class="pagination-bloc">
+  <%= will_paginate @pages, class:'pagination-lg'%>
+
+  <div class="per_page">
+    <%= select_tag :limit, options_for_select([5,10,20,50], params[:limit].to_i),
+                   :onchange => "if(this.value){window.location='?limit='+this.value;}" %>
+    <span>per page</span>
+  </div>
+
+</div>
+
+
+<button type="button" id="unpublished" class="btn btn-info col-md-10 offset-md-1">Not published pages</button>
+<table class="table table-bordered table-hover table-sm col-md-10 offset-md-1 hidden" id="np">
+  <thead>
+  <tr>
+    <th colspan="11">Not published pages</th>
+  </tr>
+  <tr>
+    <th>id</th>
+    <th >Title</th>
+    <th >Description</th>
+    <th >Slug</th>
+    <th >H1</th>
+    <th >Content</th>
+    <th >Published at</th>
+    <th >Priority</th>
+    <th >Show</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @not_published.each do |page| %>
+      <tr>
+        <td> <%= page[:id] %></td>
+        <td> <%= page.title.first(15) %> </td>
+        <td> <%= page.description.first(10) %> </td>
+        <td> <%= page.slug.first(10) %> </td>
+        <td> <%= page.h1.first(5) %> </td>
+        <td> <%= page.content.first(20) %> </td>
+        <td> <%= page.published_at %> </td>
+        <td> <%= page.priority %> </td>
+        <td>
+          <%= link_to page_show_path(page[:slug]) do%>
+              <button type="button" class="btn btn-outline-primary btn-sm">Show</button>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to edit_page_path(page[:slug]) do%>
+              <button type="button" class="btn btn-outline-warning btn-sm">Edit</button>
+          <% end %>
+        </td>
+
+        <td>
+          <%= link_to page_path(page) ,method: :delete,data: { confirm: 'Are you sure?' } do %>
+              <button type="button" class="btn btn-outline-danger btn-sm">Delete</button>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

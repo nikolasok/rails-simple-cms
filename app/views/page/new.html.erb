@@ -1,0 +1,53 @@
+<%= render "partials/header" %>
+
+<%= form_with scope: :page, url: page_index_path, local: true, html:{class:"col-md-8 offset-md-2"} do |form| %>
+    <h1>Create a page</h1>
+    <div class="form-group row">
+      <%= form.label :title , class:"col-sm-2 col-form-label"%>
+      <%= form.text_field :title, class:"col-sm-3 form-control", placeholder:"Title" %>
+    </div>
+
+    <div class="form-group row">
+      <%= form.label :description, class:"col-sm-2 col-form-label" %>
+      <%= form.text_field :description, class:"col-sm-3 form-control", placeholder:"Description in meta tag" %>
+    </div>
+
+    <div class="form-group row">
+      <%= form.label :slug, class:"col-sm-2 col-form-label"%><br>
+      <%= form.text_field :slug, class:"col-sm-3 form-control", placeholder:"URL" %>
+    </div>
+
+    <div class="form-group row">
+      <%= form.label :h1, class:"col-sm-2 col-form-label"%><br>
+      <%= form.text_field :h1, class:"col-sm-3 form-control", placeholder:"Article title" %>
+    </div>
+
+    <div class="form-group">
+
+      <%= form.label :content, class:"col-sm-2 col-form-label"%>
+      <%= form.text_area :content, class:"form-control", id:"editor", rows:"10" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :published_at %><br>
+      <div class="form-group row">
+        <%= form.label :Date, class:"col-sm-2 col-form-label"%><br>
+        <%= form.text_field :published_at_date, data: {provide: 'datepicker'},:value=>Date.today.strftime('%Y-%m-%d'), class:"datepicker col-sm-3 form-control", placeholder:"2017-02-28"%>
+
+      </div>
+      <div class="form-group row">
+        <%= form.label :Time, class:"col-sm-2 col-form-label"%><br>
+        <%= form.text_field :published_at_hour, class:"col-sm-3 form-control", placeholder:"23:59"%>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <%= form.label :priority, class:"col-sm-2 col-form-label"%><br>
+      <%= form.text_field :priority, class:"col-sm-3 form-control" %>
+    </div>
+
+    <p>
+      <%= form.submit 'Save', class:"btn btn-primary" %>
+    </p>
+
+<% end %>
